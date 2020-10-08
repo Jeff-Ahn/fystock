@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 
-const HeaderBlock = styled.div`
+const HeaderBlock = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
