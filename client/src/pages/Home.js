@@ -1,7 +1,8 @@
 import React from 'react';
+import GlobalLayout from '../components/GlobalLayout';
 
 const Home = () => {
-  return <div>Home</div>;
+  return <GlobalLayout>Home</GlobalLayout>;
 };
 
 export default Home;
