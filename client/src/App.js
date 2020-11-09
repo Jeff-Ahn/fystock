@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import SearchFilter from './pages/SearchFilter';
 import Home from './pages/Home';
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route exact path='/' component={Home} />
+        <Route path='/search' component={SearchFilter} />
       </Switch>
     </BrowserRouter>
   );
