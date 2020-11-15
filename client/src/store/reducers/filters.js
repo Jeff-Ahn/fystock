@@ -1,4 +1,4 @@
-import { SET_FILTERS } from '../actions/filters';
+import { SET_USER_FITERS } from '../actions/filters';
 
 const initialState = {
   filters: [],
@@ -6,8 +6,9 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case SET_FILTERS:
+    case SET_USER_FITERS:
       const { filters } = action.payload;
+      console.log('reducer: ', filters);
       return {
         filters,
       };

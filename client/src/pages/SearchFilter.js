@@ -7,7 +7,8 @@ import { CONDITIONS, MOBILE_MAX_WIDTH } from '../domain/constants';
 import Filter from '../components/search/Filter';
 
 import { useDispatch } from 'react-redux';
-import { setFilter } from '../store/actions/filters';
+import { setUserFilters } from '../store/actions/filters';
+import { useHistory } from 'react-router-dom';
 
 const Layout = styled.main`
   display: inline-block;
@@ -28,6 +29,7 @@ const VerticalLayout = styled.div`
 const SearchFilter = () => {
   const [conditions, setConditions] = useState(CONDITIONS);
   const [filters, setFilters] = useState([]);
+  const history = useHistory();
 
   const dispatch = useDispatch();
   console.log('conditions: ', conditions);
@@ -60,7 +62,6 @@ const SearchFilter = () => {
     const newFilters = [...filters];
     newFilters[index] = newFilter;
     setFilters(newFilters);
-    console.log(filters);
   };
 
   return (
@@ -108,10 +109,9 @@ const SearchFilter = () => {
         ))}
         <Button
           onClick={() => {
-            console.log('onChange실행');
-            dispatch(setFilters());
+            dispatch(setUserFilters(filters));
+            history.push('/result');
           }}
-          to='/result'
         >
           필터링 결과 확인하기
         </Button>

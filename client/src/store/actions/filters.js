@@ -1,8 +1,8 @@
-export const SET_FILTERS = 'SET_FILTERS';
+export const SET_USER_FITERS = 'SET_USER_FITERS';
 
-export const setFilters = (filters) => {
+export const setUserFilters = (filters) => {
   return {
-    type: SET_FILTERS,
+    type: SET_USER_FITERS,
     payload: { filters },
   };
 };
