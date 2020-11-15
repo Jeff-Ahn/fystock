@@ -8,7 +8,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { FYSTOCK_BLACK } from './domain/constants';
 
-import conditionsReducer from './store/reducers/conditions';
+import filtersReducer from './store/reducers/filters';
 
 const globalStyle = css`
   body {
@@ -24,7 +24,7 @@ const globalStyle = css`
 `;
 
 const rootReducer = combineReducers({
-  conditions: conditionsReducer,
+  filters: filtersReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

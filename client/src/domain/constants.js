@@ -6,3 +6,23 @@ export const FYSTOCK_GRAY = '#ced4da';
 // screen size
 export const MAX_WIDTH = 960;
 export const MOBILE_MAX_WIDTH = 575.98;
+
+// filter conditions
+export const CONDITIONS = [
+  { id: 1, condition: '매출액', isChecked: false },
+  { id: 2, condition: '영업이익', isChecked: false },
+  { id: 3, condition: '당기순이익', isChecked: false },
+  { id: 4, condition: '영업이익률', isChecked: false },
+  { id: 5, condition: '순이익률', isChecked: false },
+  { id: 6, condition: 'ROE', isChecked: false },
+  { id: 7, condition: '부채비율', isChecked: false },
+  { id: 8, condition: '당좌비율', isChecked: false },
+  { id: 9, condition: '유보율', isChecked: false },
+  { id: 10, condition: 'EPS', isChecked: false },
+  { id: 11, condition: 'PER', isChecked: false },
+  { id: 12, condition: 'BPS', isChecked: false },
+  { id: 13, condition: 'PBR', isChecked: false },
+  { id: 14, condition: '주당배당금', isChecked: false },
+  { id: 15, condition: '시가배당률', isChecked: false },
+  { id: 16, condition: '배당성향', isChecked: false },
+];
