@@ -34,10 +34,12 @@ const ShowResult = () => {
   const indexOfFirstPost = indexOfLastPost - STOCK_PER_PAGE;
   const currentStocks = resultStocks.slice(indexOfFirstPost, indexOfLastPost);
 
-  const onRemove = () => {};
+  const onRemove = (id) => {
+    const filteredStocks = resultStocks.filter((stock) => stock !== id);
+    setResultStocks(filteredStocks);
+  };
 
   const paginate = (pageNumber) => {
-    console.log(pageNumber);
     setCurrentPage(pageNumber);
   };
 
@@ -45,7 +47,7 @@ const ShowResult = () => {
     <GlobalLayout>
       <Layout>
         {currentStocks.map((stock) => (
-          <Card index={stock} id={stock} />
+          <Card index={stock} id={stock} onRemove={onRemove} />
         ))}
         <Pagination
           stockPerPage={STOCK_PER_PAGE}

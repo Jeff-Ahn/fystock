@@ -31,7 +31,7 @@ const Content = styled.div`
   justify-content: space-around;
 `;
 
-const Card = ({ id, index }) => {
+const Card = ({ id, index, onRemove }) => {
   // const stock = stocksApi.getStock(id);
 
   return (
@@ -44,7 +44,7 @@ const Card = ({ id, index }) => {
           <main>시총이나현재가격?</main>
         </Content>
       </StyledLink>
-      <button>x</button>
+      <button onClick={() => onRemove(id)}>x</button>
     </CardBlock>
   );
 };
