@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Route } from 'react-router-dom';
-import { PRIMARY_COLOR } from '../../domain/constants';
+import { MOBILE_MAX_WIDTH, PRIMARY_COLOR } from '../../domain/constants';
 
 const ButtonBlock = styled.button`
   display: inline-flex;
@@ -20,6 +20,10 @@ const ButtonBlock = styled.button`
   transition: 0.125s all ease-in;
   &:hover {
     box-shadow: 0px 2px 12px #00000030;
+  }
+
+  @media (max-width: ${MOBILE_MAX_WIDTH}px) {
+    font-size: 1.5rem;
   }
 `;
 

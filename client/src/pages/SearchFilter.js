@@ -54,8 +54,6 @@ const SearchFilter = () => {
   };
 
   const setFilter = (id, value, checkedState) => {
-    console.log(filters);
-
     const filter = filters.find((filter) => filter.id === id);
     const newFilter = { ...filter, value, checkedState };
     const index = filters.indexOf(filter);

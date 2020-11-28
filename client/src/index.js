@@ -16,6 +16,7 @@ const globalStyle = css`
     padding: 0;
     background-color: #fff;
     color: ${FYSTOCK_BLACK};
+    font-family: 'Nanum Gothic', sans-serif;
   }
 
   div#root {
