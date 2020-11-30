@@ -17,13 +17,8 @@ router.get('/about', (req, res) => {
 router.get('/find',(req,res)=>{
   company.find({},protection,function(err,companies)
   {
-    var List="종목코드&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;이름";
-    for(i=0;i<companies.length;i++)
-    {
-      List=List+'<br/>'+companies[i].code+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+companies[i].name;
-    }
-    res.send(List);
-  })    
+    res.json(companies);
+  });    
 });
 
 router.get('/find/:code',(req,res)=>
