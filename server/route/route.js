@@ -17,16 +17,7 @@ router.get('/about', (req, res) => {
 
 router.get('/find', (req, res) => {
   company.find({}, protection, function (err, companies) {
-    var List = '종목코드&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;이름';
-    for (i = 0; i < companies.length; i++) {
-      List =
-        List +
-        '<br/>' +
-        companies[i].code +
-        '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
-        companies[i].name;
-    }
-    res.send(List);
+    res.json(companies);
   });
 });
 
@@ -42,14 +33,15 @@ router.get('/find/:code', (req, res) => {
 
 router.post('/find/filtering', (req, res) => {
   var updownFilter = new Array();
-  console.log(req.body);
-  for (var i = 0; i < req.body.length; i++) {
-    if (req.body[i].check == 'UP')
-      updownFilter[i] = { $gte: req.body[i].value };
-    else if (req.body[i].check == 'DOWN')
-      updownFilter[i] = { $lte: req.body[i].value };
+  var { filters } = req.body;
+  console.log(filters);
+  for (var i = 0; i < filters.length; i++) {
+    if (filters[i].checkedState === 'up')
+      updownFilter[i] = { $gte: filters[i].value };
+    else if (filters[i].checkedState === 'down')
+      updownFilter[i] = { $lte: filters[i].value };
   }
-
+  console.log(updownFilter);
   financial.find(
     {
       total: updownFilter[0],
