@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Card from '../components/common/Card';
 import GlobalLayout from '../components/base/GlobalLayout';
 import { MOBILE_MAX_WIDTH } from '../domain/constants';
 import styled from '@emotion/styled';
 import Pagination from '../components/common/Pagination';
+import stocksApi from '../api/stock';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 const Layout = styled.main`
   display: flex;
@@ -14,6 +17,7 @@ const Layout = styled.main`
 `;
 
 const ShowResult = () => {
+  const filters = useSelector((state) => state.filters);
   const [resultStocks, setResultStocks] = useState([
     1,
     2,
@@ -29,6 +33,16 @@ const ShowResult = () => {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const STOCK_PER_PAGE = 5;
+
+  useEffect(() => {
+    const result =
+      filters.length &&
+      stocksApi.filterStocks(filters).then((res) => {
+        const { data } = res;
+        console.log(res);
+        return data;
+      });
+  }, [filters]);
 
   const indexOfLastPost = currentPage * STOCK_PER_PAGE;
   const indexOfFirstPost = indexOfLastPost - STOCK_PER_PAGE;

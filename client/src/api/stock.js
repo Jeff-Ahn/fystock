@@ -6,13 +6,13 @@ const stockInstance = axios.create({
 
 const stocksApi = {
   getAllStocks() {
-    // return stockInstance.get('/');
-
-    // dummy data
     return stockInstance.get('/');
   },
   getStock(id) {
     return stockInstance.get(`/${id}`);
+  },
+  filterStocks(filters) {
+    return stockInstance.post('/filtering', filters);
   },
 };
 

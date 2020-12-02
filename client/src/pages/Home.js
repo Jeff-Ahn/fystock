@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import GlobalLayout from '../components/base/GlobalLayout';
 import styled from '@emotion/styled';
 import { MOBILE_MAX_WIDTH, PRIMARY_COLOR } from '../domain/constants';
