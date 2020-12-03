@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 let FinancialSchema = new Schema({
   code : String,
   date : String,
-  total : Number,
+  totalls : Number,
   sell : Number,
   pure:Number,
   sell_per:Number,
@@ -15,12 +15,16 @@ let FinancialSchema = new Schema({
   quick_ratio:Number,
   reserv_ratio:Number,
   eps:Number,
-  eps_per:Number,
+  per:Number,
   bps:Number,
-  bps_per:Number,
+  pbr:Number,
   weekly:Number,
   timely:Number,
   trend:Number
+},
+{
+  collection:'annualFinancials',
+  versionKey:false
 });
 
 module.exports = mongoose.model("Financial", FinancialSchema);
