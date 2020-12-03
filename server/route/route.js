@@ -2,17 +2,12 @@ const express = require('express');
 const path = require('path');
 const financial = require('../model/Financial');
 const company = require('../model/Company');
-const { findByIdAndUpdate } = require('../model/Financial');
 const protection = { _id: 0, __v: 0 };
 const router = express.Router(); // 라우터 분리
 var resultList=new Array();
 var wait;
 router.get('/', (req, res) => {
-  // app 대신 router에 연결
-  res.sendFile(path.join(__dirname + '/html/main.html'));
-});
-router.get('/about', (req, res) => {
-  res.sendFile(path.join(__dirname + '/html/about.html'));
+  res.send("Hello FYS");
 });
 
 router.get('/find', (req, res) => {
@@ -36,7 +31,6 @@ router.post('/find/filtering', (req, res) => {
   var getfilters  = req.body;
   var makefilters;
   wait=0;
-  console.log(getfilters);
   for (var i = 0; i < getfilters.length; i++) {
     if (getfilters[i].checkedState === 'up')
       updownFilter[i] ={$gte: getfilters[i].value};
