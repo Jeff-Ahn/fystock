@@ -1,8 +1,29 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { TABLE_THS } from '../../domain/constants';
+import { FYSTOCK_GRAY } from '../../domain/constants';
 
-const FinancialStatementsBlock = styled.table``;
+const FinancialStatementsBlock = styled.table`
+  &&& {
+    table,
+    th,
+    td {
+      border: 1px solid ${FYSTOCK_GRAY};
+      border-collapse: collapse;
+    }
+    th,
+    td,
+    tr {
+      padding: 5px;
+    }
+    th {
+      text-align: left;
+    }
+    table {
+      width: 100%;
+    }
+  }
+`;
 
 const FinancialStatements = ({ data }) => {
   const showDetails = (datas, name) => {
@@ -21,7 +42,7 @@ const FinancialStatements = ({ data }) => {
       <thead>
         <tr>
           <th></th>
-          <th>최근 연간 실적</th>
+          <th colspan='4'>최근 연간 실적</th>
         </tr>
       </thead>
       <tbody>

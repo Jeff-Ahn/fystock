@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import styled from '@emotion/styled';
 import Card from '../components/common/Card';
 import GlobalLayout from '../components/base/GlobalLayout';
-import { MOBILE_MAX_WIDTH } from '../domain/constants';
-import styled from '@emotion/styled';
 import Pagination from '../components/common/Pagination';
-import stocksApi from '../api/stock';
-import { useSelector } from 'react-redux';
 import FinancialStatements from '../components/FinancialStatements/FinancialStatements';
+import { useSelector } from 'react-redux';
+
+import { MOBILE_MAX_WIDTH } from '../domain/constants';
+import stocksApi from '../api/stock';
 
 const Layout = styled.main`
   display: flex;
