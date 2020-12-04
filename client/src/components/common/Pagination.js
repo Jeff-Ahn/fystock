@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { PRIMARY_COLOR } from '../../domain/constants';
 
 const Wrapper = styled.div`
   display: flex;
@@ -16,7 +15,6 @@ const PageNumber = styled.li`
 const PageButton = styled.button`
   cursor: pointer;
   font-size: 1.5rem;
-  color: ${PRIMARY_COLOR};
   margin: 0 0.3rem;
   padding: 0;
   border: none;

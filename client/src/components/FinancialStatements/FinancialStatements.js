@@ -1,30 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { TABLE_THS } from '../../domain/constants';
 
 const FinancialStatementsBlock = styled.table``;
 
-const TABLE_THS = [
-  '날짜',
-  '매출액(억원)',
-  '영업이익(억원)',
-  '당기순이익(억원)',
-  '영업이익률(%)',
-  '순이익률(%)',
-  'ROE(%)',
-  '부채비율(%)',
-  '당좌비율(%)',
-  '유보율(%)',
-  'EPS(원)',
-  'PER(배)',
-  'BPS(원)',
-  'PBR(배)',
-  '주당배당금(원)',
-  '시가배당률(%)',
-  '배당성향(%)',
-];
-
 const FinancialStatements = ({ data }) => {
-  console.log(data);
   const showDetails = (datas, name) => {
     return (
       <tr>

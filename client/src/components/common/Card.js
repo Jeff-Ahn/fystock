@@ -1,12 +1,11 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { PRIMARY_COLOR } from '../../domain/constants';
-// import stocksApi from '../../api/stock';
+import { FYSTOCK_GRAY } from '../../domain/constants';
 
 const CardBlock = styled.div`
   display: flex;
   justify-content: space-around;
-  border: 5px solid ${PRIMARY_COLOR};
+  border: 5px solid ${FYSTOCK_GRAY};
   width: 100%;
   background: #fff;
   border-radius: 4px;
@@ -15,7 +14,7 @@ const CardBlock = styled.div`
   margin: 0.5rem;
   transition: 0.125s all ease-in;
   &:hover {
-    box-shadow: 0 12px 20px 0 rgba(0, 0, 0, 0.08);
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.08);
     cursor: pointer;
   }
 `;
@@ -27,13 +26,10 @@ const Content = styled.div`
 `;
 
 const Card = ({ id, index, companyName, onRemove, onShowDetails }) => {
-  // const stock = stocksApi.getStock(id);
-
   return (
-    <CardBlock onClick={() => onShowDetails(id)}>
-      <Content>
-        {/* <header>{stock.stockName}</header> */}
-        <span>{index}.</span>
+    <CardBlock>
+      <Content onClick={() => onShowDetails(id)}>
+        <span>{index}</span>
         <header>{companyName}</header>
       </Content>
       <button onClick={() => onRemove(id)}>x</button>

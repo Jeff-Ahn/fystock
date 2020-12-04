@@ -48,27 +48,34 @@ const ShowResult = () => {
       const filteredStocks = resultStocks.filter(
         (stock) => stock.code !== code
       );
+      console.log(details);
+      if (details.length && details[0].code === code) {
+        setDetails([]);
+      }
       setResultStocks(filteredStocks);
     },
-    [resultStocks]
+    [resultStocks, details]
   );
 
   const paginate = useCallback((pageNumber) => {
     setCurrentPage(pageNumber);
   }, []);
 
-  const showDetails = async (code) => {
-    if (details.length && details[0].code === code) {
-      setDetails([]);
-      return;
-    }
-    await stocksApi
-      .getStock(code)
-      .then(({ data }) => {
-        setDetails(data);
-      })
-      .catch((err) => console.error(err));
-  };
+  const showDetails = useCallback(
+    async (code) => {
+      if (details.length && details[0].code === code) {
+        setDetails([]);
+        return;
+      }
+      await stocksApi
+        .getStock(code)
+        .then(({ data }) => {
+          setDetails(data);
+        })
+        .catch((err) => console.error(err));
+    },
+    [details]
+  );
 
   return (
     <GlobalLayout>
