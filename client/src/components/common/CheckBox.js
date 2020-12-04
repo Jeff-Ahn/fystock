@@ -1,5 +1,5 @@
-import styled from '@emotion/styled';
 import React from 'react';
+import styled from '@emotion/styled';
 
 const TitleBlock = styled.span`
   font-size: 1.125rem;

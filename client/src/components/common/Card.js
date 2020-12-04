@@ -1,13 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { PRIMARY_COLOR } from '../../domain/constants';
 // import stocksApi from '../../api/stock';
 
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: inherit;
-`;
 const CardBlock = styled.div`
   display: flex;
   justify-content: space-around;
@@ -36,13 +31,11 @@ const Card = ({ id, index, companyName, onRemove, onShowDetails }) => {
 
   return (
     <CardBlock onClick={() => onShowDetails(id)}>
-      <StyledLink to={`/result/${id}`}>
-        <Content>
-          {/* <header>{stock.stockName}</header> */}
-          <span>{index}.</span>
-          <header>{companyName}</header>
-        </Content>
-      </StyledLink>
+      <Content>
+        {/* <header>{stock.stockName}</header> */}
+        <span>{index}.</span>
+        <header>{companyName}</header>
+      </Content>
       <button onClick={() => onRemove(id)}>x</button>
     </CardBlock>
   );

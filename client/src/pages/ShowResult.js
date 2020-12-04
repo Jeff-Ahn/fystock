@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 import Pagination from '../components/common/Pagination';
 import stocksApi from '../api/stock';
 import { useSelector } from 'react-redux';
+import FinancialStatements from '../components/FinancialStatements/FinancialStatements';
 
 const Layout = styled.main`
   display: flex;
@@ -42,16 +43,25 @@ const ShowResult = () => {
   const indexOfFirstPost = indexOfLastPost - STOCK_PER_PAGE;
   const currentStocks = resultStocks?.slice(indexOfFirstPost, indexOfLastPost);
 
-  const onRemove = useCallback((code) => {
-    const filteredStocks = resultStocks.filter((stock) => stock.code !== code);
-    setResultStocks(filteredStocks);
-  });
+  const onRemove = useCallback(
+    (code) => {
+      const filteredStocks = resultStocks.filter(
+        (stock) => stock.code !== code
+      );
+      setResultStocks(filteredStocks);
+    },
+    [resultStocks]
+  );
 
   const paginate = useCallback((pageNumber) => {
     setCurrentPage(pageNumber);
-  });
+  }, []);
 
   const showDetails = async (code) => {
+    if (details.length && details[0].code === code) {
+      setDetails([]);
+      return;
+    }
     await stocksApi
       .getStock(code)
       .then(({ data }) => {
@@ -84,7 +94,7 @@ const ShowResult = () => {
           totalStocks={resultStocks.length}
           paginate={paginate}
         />
-        <>{details && console.log(details)}</>
+        <>{details.length ? <FinancialStatements data={details} /> : null}</>
       </Layout>
       )
     </GlobalLayout>

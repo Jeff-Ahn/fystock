@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { PRIMARY_COLOR } from '../../domain/constants';
 import { css } from '@emotion/core';
@@ -56,13 +56,46 @@ const LessBtn = styled.button`
 `;
 
 const Filter = ({ condition, value, checkedState, id, setFilter }) => {
+  const [unit, setUnit] = useState('');
+
+  useEffect(() => {
+    const calcUnit = (condition) => {
+      const length = condition.length;
+      switch (condition[length - 1]) {
+        case '액':
+        case '익':
+          setUnit('(억원)');
+          break;
+        case '율':
+        case '률':
+        case 'E':
+        case '향':
+          setUnit('(%)');
+          break;
+        case 'R':
+          setUnit('(배)');
+          break;
+        case 'S':
+        case '금':
+          setUnit('(원)');
+          break;
+        default:
+          break;
+      }
+    };
+    calcUnit(condition);
+  }, [condition]);
+
   const onFocus = (e) => {
     e.target.select();
   };
 
   return (
     <FilterBlock>
-      <ConditionBlock>{condition}</ConditionBlock>
+      <ConditionBlock>
+        {condition}
+        {unit}
+      </ConditionBlock>
       <NumberInput
         type='number'
         step={5}
