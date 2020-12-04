@@ -8,7 +8,6 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case SET_USER_FITERS:
       const { filters } = action.payload;
-      console.log('reducer: ', filters);
       return {
         filters,
       };
