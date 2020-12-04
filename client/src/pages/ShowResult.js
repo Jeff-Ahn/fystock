@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Card from '../components/common/Card';
 import GlobalLayout from '../components/base/GlobalLayout';
 import { MOBILE_MAX_WIDTH } from '../domain/constants';
 import styled from '@emotion/styled';
 import Pagination from '../components/common/Pagination';
+import stocksApi from '../api/stock';
+import { useSelector } from 'react-redux';
 
 const Layout = styled.main`
   display: flex;
@@ -14,47 +16,77 @@ const Layout = styled.main`
 `;
 
 const ShowResult = () => {
-  const [resultStocks, setResultStocks] = useState([
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-  ]);
+  const filters = useSelector((state) => state.filters);
+  const [resultStocks, setResultStocks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const STOCK_PER_PAGE = 5;
+  const [details, setDetails] = useState([]);
+  const STOCK_PER_PAGE = 10;
+
+  useEffect(() => {
+    stocksApi
+      .filterStocks(filters)
+      .then((res) => {
+        const { data } = res;
+        setLoading(false);
+        console.log(data);
+        setResultStocks(data);
+        setLoading(true);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, [filters]);
 
   const indexOfLastPost = currentPage * STOCK_PER_PAGE;
   const indexOfFirstPost = indexOfLastPost - STOCK_PER_PAGE;
-  const currentStocks = resultStocks.slice(indexOfFirstPost, indexOfLastPost);
+  const currentStocks = resultStocks?.slice(indexOfFirstPost, indexOfLastPost);
 
-  const onRemove = (id) => {
-    const filteredStocks = resultStocks.filter((stock) => stock !== id);
+  const onRemove = useCallback((code) => {
+    const filteredStocks = resultStocks.filter((stock) => stock.code !== code);
     setResultStocks(filteredStocks);
-  };
+  });
 
-  const paginate = (pageNumber) => {
+  const paginate = useCallback((pageNumber) => {
     setCurrentPage(pageNumber);
+  });
+
+  const showDetails = async (code) => {
+    await stocksApi
+      .getStock(code)
+      .then(({ data }) => {
+        setDetails(data);
+      })
+      .catch((err) => console.error(err));
   };
 
   return (
     <GlobalLayout>
       <Layout>
-        {currentStocks.map((stock) => (
-          <Card index={stock} id={stock} onRemove={onRemove} />
-        ))}
+        {!loading ? (
+          <>Loading...</>
+        ) : (
+          currentStocks.map((stock, index) => {
+            const { code, name } = stock;
+            return (
+              <Card
+                index={index + 1}
+                id={code}
+                companyName={name}
+                onShowDetails={() => showDetails(code)}
+                onRemove={() => onRemove(code)}
+              />
+            );
+          })
+        )}
         <Pagination
           stockPerPage={STOCK_PER_PAGE}
-          totalStocks={10}
+          totalStocks={resultStocks.length}
           paginate={paginate}
         />
+        <>{details && console.log(details)}</>
       </Layout>
+      )
     </GlobalLayout>
   );
 };

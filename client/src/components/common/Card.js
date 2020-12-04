@@ -28,20 +28,19 @@ const CardBlock = styled.div`
 const Content = styled.div`
   display: flex;
   width: 20rem;
-  justify-content: space-around;
+  justify-content: space-between;
 `;
 
-const Card = ({ id, index, onRemove }) => {
+const Card = ({ id, index, companyName, onRemove, onShowDetails }) => {
   // const stock = stocksApi.getStock(id);
 
   return (
-    <CardBlock>
+    <CardBlock onClick={() => onShowDetails(id)}>
       <StyledLink to={`/result/${id}`}>
         <Content>
           {/* <header>{stock.stockName}</header> */}
           <span>{index}.</span>
-          <header>종목이름</header>
-          <main>시총이나현재가격?</main>
+          <header>{companyName}</header>
         </Content>
       </StyledLink>
       <button onClick={() => onRemove(id)}>x</button>

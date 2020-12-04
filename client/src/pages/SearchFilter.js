@@ -32,8 +32,6 @@ const SearchFilter = () => {
   const history = useHistory();
 
   const dispatch = useDispatch();
-  console.log('conditions: ', conditions);
-  console.log('filters: ', filters);
 
   const addFilter = (id) => {
     const { condition } = CONDITIONS.find((_condition) => _condition.id === id);
@@ -86,7 +84,6 @@ const SearchFilter = () => {
                 ...condition,
                 isChecked: !condition.isChecked,
               };
-              console.log(newCondition);
               const newConditions = [...conditions];
               newConditions[index] = newCondition;
               setConditions(newConditions);
