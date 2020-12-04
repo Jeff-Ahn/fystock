@@ -98,6 +98,7 @@ const ShowResult = () => {
           })
         )}
         <Pagination
+          page={currentPage}
           stockPerPage={STOCK_PER_PAGE}
           totalStocks={resultStocks.length}
           paginate={paginate}

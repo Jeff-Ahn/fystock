@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { PRIMARY_COLOR } from '../../domain/constants';
 
 const Wrapper = styled.div`
   display: flex;
@@ -19,8 +20,15 @@ const PageButton = styled.button`
   padding: 0;
   border: none;
   background: none;
+  outline: none;
+  color: #495057;
+
+  &.active {
+    color: ${PRIMARY_COLOR};
+    font-weight: bold;
+  }
 `;
-const Pagination = ({ stockPerPage, totalStocks, paginate }) => {
+const Pagination = ({ stockPerPage, totalStocks, paginate, page }) => {
   const pageNumbers = [];
 
   for (let i = 1; i <= Math.ceil(totalStocks / stockPerPage); i++) {
@@ -29,11 +37,24 @@ const Pagination = ({ stockPerPage, totalStocks, paginate }) => {
   return (
     <Wrapper>
       <PageLists>
-        {pageNumbers.map((number) => (
-          <PageNumber key={number}>
-            <PageButton onClick={() => paginate(number)}>{number}</PageButton>
-          </PageNumber>
-        ))}
+        {pageNumbers.map((number) => {
+          console.log(page);
+          console.log(number);
+          if (page === number) {
+            return (
+              <PageNumber key={number}>
+                <PageButton className='active' onClick={() => paginate(number)}>
+                  {number}
+                </PageButton>
+              </PageNumber>
+            );
+          }
+          return (
+            <PageNumber key={number}>
+              <PageButton onClick={() => paginate(number)}>{number}</PageButton>
+            </PageNumber>
+          );
+        })}
       </PageLists>
     </Wrapper>
   );
