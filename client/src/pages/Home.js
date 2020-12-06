@@ -13,7 +13,7 @@ const Layout = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0 20%;
+  padding: 5rem 30%;
   max-width: ${MOBILE_MAX_WIDTH};
 `;
 

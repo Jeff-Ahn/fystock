@@ -13,7 +13,7 @@ import FilterSetting from '../components/Filter/FilterSetting';
 const Layout = styled.main`
   display: flex;
   flex-direction: column;
-  padding: 0 20%;
+  padding: 0 30%;
   max-width: ${MOBILE_MAX_WIDTH};
   margin: 2rem;
 `;
@@ -31,6 +31,13 @@ const LoadingBlock = styled.div`
   font-size: 2rem;
 `;
 
+const Description = styled.div`
+  margin-left: 2.5rem;
+  margin-bottom: 2.5rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+`;
+
 const ShowResult = () => {
   const filters = useSelector((state) => state.filters);
   const [resultStocks, setResultStocks] = useState([]);
@@ -46,7 +53,6 @@ const ShowResult = () => {
       .then((res) => {
         const { data } = res;
         setLoading(false);
-        console.log(data);
         setResultStocks(data);
         setLoading(true);
       })
@@ -64,7 +70,6 @@ const ShowResult = () => {
       const filteredStocks = resultStocks.filter(
         (stock) => stock.code !== code
       );
-      console.log(details);
       if (details.length && details[0].code === code) {
         setSelectedStockId(null);
         setDetails([]);
@@ -101,22 +106,27 @@ const ShowResult = () => {
         {!loading ? (
           <LoadingBlock>Searching...</LoadingBlock>
         ) : (
-          <CardsBlock>
-            {currentStocks.map((stock, index) => {
-              const { code, name } = stock;
-              return (
-                <Card
-                  key={code}
-                  id={code}
-                  selected={selectedStockId === code}
-                  companyName={name}
-                  onShowDetails={() => showDetails(code)}
-                  onRemove={() => onRemove(code)}
-                  onSelect={setSelectedStockId}
-                />
-              );
-            })}
-          </CardsBlock>
+          <>
+            <Description>
+              * 종목을 클릭하여 상세 재무제표를 확인하세요.
+            </Description>
+            <CardsBlock>
+              {currentStocks.map((stock, index) => {
+                const { code, name } = stock;
+                return (
+                  <Card
+                    key={code}
+                    id={code}
+                    selected={selectedStockId === code}
+                    companyName={name}
+                    onShowDetails={() => showDetails(code)}
+                    onRemove={() => onRemove(code)}
+                    onSelect={setSelectedStockId}
+                  />
+                );
+              })}
+            </CardsBlock>
+          </>
         )}
         <Pagination
           page={currentPage}

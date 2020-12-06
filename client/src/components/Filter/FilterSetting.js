@@ -9,9 +9,8 @@ const FilterSettingBlock = styled.div`
 const Text = styled.span`
   margin-top: 2.5rem;
   margin-left: 2.5rem;
-  font-size: 1.125rem;
+  font-size: 1.25rem;
   font-weight: bold;
-  width: 12rem;
 `;
 
 const Conditions = styled.div`
@@ -27,7 +26,6 @@ const FilterSetting = ({ filters }) => {
       <Conditions>
         {settings.length
           ? settings.map((filter) => {
-              console.log(filter);
               const { condition, value, checkedState } = filter;
               return (
                 <Condition
