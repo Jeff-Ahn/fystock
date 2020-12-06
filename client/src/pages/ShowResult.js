@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 
 import { MOBILE_MAX_WIDTH } from '../domain/constants';
 import stocksApi from '../api/stock';
+import FilterSetting from '../components/Filter/FilterSetting';
 
 const Layout = styled.main`
   display: flex;
@@ -96,6 +97,7 @@ const ShowResult = () => {
   return (
     <GlobalLayout>
       <Layout>
+        <FilterSetting filters={filters} />
         {!loading ? (
           <LoadingBlock>Searching...</LoadingBlock>
         ) : (
@@ -104,7 +106,7 @@ const ShowResult = () => {
               const { code, name } = stock;
               return (
                 <Card
-                  index={code}
+                  key={code}
                   id={code}
                   selected={selectedStockId === code}
                   companyName={name}

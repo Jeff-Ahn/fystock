@@ -53,7 +53,6 @@ const DeleteBtn = styled.button`
 
 const Card = ({
   id,
-  index,
   companyName,
   onRemove,
   onShowDetails,
@@ -70,7 +69,7 @@ const Card = ({
           }}
         >
           <Content>
-            <span>{index}</span>
+            <span>{id}</span>
             <header>{companyName}</header>
           </Content>
         </ContentBlock>
@@ -83,7 +82,7 @@ const Card = ({
           }}
         >
           <Content>
-            <span>{index}</span>
+            <span>{id}</span>
             <header>{companyName}</header>
           </Content>
         </ContentBlock>

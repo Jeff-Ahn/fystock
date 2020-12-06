@@ -4,7 +4,7 @@ import GlobalLayout from '../components/base/GlobalLayout';
 import CheckBox from '../components/common/CheckBox';
 import Button from '../components/common/Button';
 import { CONDITIONS, MOBILE_MAX_WIDTH } from '../domain/constants';
-import Filter from '../components/search/Filter';
+import Filter from '../components/Filter/Filter';
 
 import { useDispatch } from 'react-redux';
 import { setUserFilters } from '../store/actions/filters';
@@ -17,9 +17,10 @@ const SearchFilterBlock = styled.div`
 
 const Layout = styled.main`
   display: inline-block;
-  padding: 0 20%;
+  padding: 0 30%;
   max-width: ${MOBILE_MAX_WIDTH};
   margin: 2rem;
+  text-align: center;
 `;
 
 const VerticalLayout = styled.div`
