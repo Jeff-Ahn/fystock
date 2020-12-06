@@ -1,8 +1,14 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { FYSTOCK_GRAY } from '../../domain/constants';
+import { FYSTOCK_GRAY, PRIMARY_COLOR } from '../../domain/constants';
 
 const CardBlock = styled.div`
+  display: flex;
+  width: 20rem;
+  align-items: center;
+`;
+
+const ContentBlock = styled.div`
   display: flex;
   justify-content: space-around;
   border: 5px solid ${FYSTOCK_GRAY};
@@ -17,22 +23,73 @@ const CardBlock = styled.div`
     box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.08);
     cursor: pointer;
   }
+  &.active {
+    border-color: ${PRIMARY_COLOR};
+  }
 `;
 
 const Content = styled.div`
   display: flex;
-  width: 20rem;
+  width: 100%;
+  padding: 0 1rem;
   justify-content: space-between;
 `;
 
-const Card = ({ id, index, companyName, onRemove, onShowDetails }) => {
+const DeleteBtn = styled.button`
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: ${PRIMARY_COLOR};
+  color: #fff;
+  outline: none;
+  border: none;
+  &:hover {
+    background: tomato;
+  }
+`;
+
+const Card = ({
+  id,
+  index,
+  companyName,
+  onRemove,
+  onShowDetails,
+  selected,
+  onSelect,
+}) => {
   return (
     <CardBlock>
-      <Content onClick={() => onShowDetails(id)}>
-        <span>{index}</span>
-        <header>{companyName}</header>
-      </Content>
-      <button onClick={() => onRemove(id)}>x</button>
+      {!selected ? (
+        <ContentBlock
+          onClick={() => {
+            onShowDetails(id);
+            onSelect(id);
+          }}
+        >
+          <Content>
+            <span>{index}</span>
+            <header>{companyName}</header>
+          </Content>
+        </ContentBlock>
+      ) : (
+        <ContentBlock
+          className='active'
+          onClick={() => {
+            onShowDetails(id);
+            onSelect(null);
+          }}
+        >
+          <Content>
+            <span>{index}</span>
+            <header>{companyName}</header>
+          </Content>
+        </ContentBlock>
+      )}
+
+      <DeleteBtn onClick={() => onRemove(id)}>x</DeleteBtn>
     </CardBlock>
   );
 };

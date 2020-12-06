@@ -38,8 +38,6 @@ const Pagination = ({ stockPerPage, totalStocks, paginate, page }) => {
     <Wrapper>
       <PageLists>
         {pageNumbers.map((number) => {
-          console.log(page);
-          console.log(number);
           if (page === number) {
             return (
               <PageNumber key={number}>

@@ -4,7 +4,10 @@ import styled from '@emotion/styled';
 import { MOBILE_MAX_WIDTH, PRIMARY_COLOR } from '../domain/constants';
 import Button from '../components/common/Button';
 
-const HomeBlock = styled.div``;
+const HomeBlock = styled.div`
+  width: 100%;
+  height: 45rem;
+`;
 
 const Layout = styled.main`
   display: flex;

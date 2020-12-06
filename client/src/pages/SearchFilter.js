@@ -10,6 +10,11 @@ import { useDispatch } from 'react-redux';
 import { setUserFilters } from '../store/actions/filters';
 import { useHistory } from 'react-router-dom';
 
+const SearchFilterBlock = styled.div`
+  width: 100%;
+  height: 45rem;
+`;
+
 const Layout = styled.main`
   display: inline-block;
   padding: 0 20%;
@@ -62,55 +67,57 @@ const SearchFilter = () => {
 
   return (
     <GlobalLayout>
-      <Layout>
-        {conditions.map((condition, index) => (
-          <CheckBox
-            key={condition.id}
-            title={condition.condition}
-            checked={condition.isChecked}
-            onChange={() => {
-              const isExist = filters.find(
-                (filter) => filter.id === condition.id
-              )
-                ? true
-                : false;
-              if (!isExist) {
-                addFilter(condition.id);
-              } else {
-                removeFilter(condition.id);
-              }
+      <SearchFilterBlock>
+        <Layout>
+          {conditions.map((condition, index) => (
+            <CheckBox
+              key={condition.id}
+              title={condition.condition}
+              checked={condition.isChecked}
+              onChange={() => {
+                const isExist = filters.find(
+                  (filter) => filter.id === condition.id
+                )
+                  ? true
+                  : false;
+                if (!isExist) {
+                  addFilter(condition.id);
+                } else {
+                  removeFilter(condition.id);
+                }
 
-              const newCondition = {
-                ...condition,
-                isChecked: !condition.isChecked,
-              };
-              const newConditions = [...conditions];
-              newConditions[index] = newCondition;
-              setConditions(newConditions);
+                const newCondition = {
+                  ...condition,
+                  isChecked: !condition.isChecked,
+                };
+                const newConditions = [...conditions];
+                newConditions[index] = newCondition;
+                setConditions(newConditions);
+              }}
+            />
+          ))}
+        </Layout>
+        <VerticalLayout>
+          {filters.map((filter) => (
+            <Filter
+              key={filter.id}
+              id={filter.id}
+              condition={filter.condition}
+              value={filter.value}
+              checkedState={filter.checkedState}
+              setFilter={setFilter}
+            />
+          ))}
+          <Button
+            onClick={() => {
+              dispatch(setUserFilters(filters));
+              history.push('/result');
             }}
-          />
-        ))}
-      </Layout>
-      <VerticalLayout>
-        {filters.map((filter) => (
-          <Filter
-            key={filter.id}
-            id={filter.id}
-            condition={filter.condition}
-            value={filter.value}
-            checkedState={filter.checkedState}
-            setFilter={setFilter}
-          />
-        ))}
-        <Button
-          onClick={() => {
-            dispatch(setUserFilters(filters));
-            history.push('/result');
-          }}
-        >
-          필터링 결과 확인하기
-        </Button>
-      </VerticalLayout>
+          >
+            필터링 결과 확인하기
+          </Button>
+        </VerticalLayout>
+      </SearchFilterBlock>
     </GlobalLayout>
   );
 };

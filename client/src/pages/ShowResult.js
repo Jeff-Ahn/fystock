@@ -17,11 +17,25 @@ const Layout = styled.main`
   margin: 2rem;
 `;
 
+const CardsBlock = styled.div`
+  margin: 0 auto;
+  height: 28rem;
+`;
+
+const LoadingBlock = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 13rem;
+  font-size: 2rem;
+`;
+
 const ShowResult = () => {
   const filters = useSelector((state) => state.filters);
   const [resultStocks, setResultStocks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedStockId, setSelectedStockId] = useState(null);
   const [details, setDetails] = useState([]);
   const STOCK_PER_PAGE = 10;
 
@@ -51,6 +65,7 @@ const ShowResult = () => {
       );
       console.log(details);
       if (details.length && details[0].code === code) {
+        setSelectedStockId(null);
         setDetails([]);
       }
       setResultStocks(filteredStocks);
@@ -82,20 +97,24 @@ const ShowResult = () => {
     <GlobalLayout>
       <Layout>
         {!loading ? (
-          <>Loading...</>
+          <LoadingBlock>Searching...</LoadingBlock>
         ) : (
-          currentStocks.map((stock, index) => {
-            const { code, name } = stock;
-            return (
-              <Card
-                index={index + 1}
-                id={code}
-                companyName={name}
-                onShowDetails={() => showDetails(code)}
-                onRemove={() => onRemove(code)}
-              />
-            );
-          })
+          <CardsBlock>
+            {currentStocks.map((stock, index) => {
+              const { code, name } = stock;
+              return (
+                <Card
+                  index={code}
+                  id={code}
+                  selected={selectedStockId === code}
+                  companyName={name}
+                  onShowDetails={() => showDetails(code)}
+                  onRemove={() => onRemove(code)}
+                  onSelect={setSelectedStockId}
+                />
+              );
+            })}
+          </CardsBlock>
         )}
         <Pagination
           page={currentPage}

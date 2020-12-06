@@ -14,6 +14,7 @@ const FinancialStatementsBlock = styled.table`
     th,
     td,
     tr {
+      width: 20%;
       padding: 5px;
     }
     th {
@@ -21,6 +22,7 @@ const FinancialStatementsBlock = styled.table`
     }
     table {
       width: 100%;
+      min-width: 40rem;
     }
   }
 `;
@@ -42,7 +44,7 @@ const FinancialStatements = ({ data }) => {
       <thead>
         <tr>
           <th></th>
-          <th colspan='4'>최근 연간 실적</th>
+          <th colSpan='4'>최근 연간 실적</th>
         </tr>
       </thead>
       <tbody>
