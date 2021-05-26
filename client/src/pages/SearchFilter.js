@@ -3,12 +3,9 @@ import styled from '@emotion/styled';
 import GlobalLayout from '../components/base/GlobalLayout';
 import CheckBox from '../components/common/CheckBox';
 import Button from '../components/common/Button';
-import { CONDITIONS, MOBILE_MAX_WIDTH } from '../domain/constants';
 import Filter from '../components/Filter/Filter';
-
-import { useDispatch } from 'react-redux';
-import { setUserFilters } from '../store/actions/filters';
-import { useHistory } from 'react-router-dom';
+import useFilters from '../hooks/useFilters';
+import { CONDITIONS, MOBILE_MAX_WIDTH } from '../domain/constants';
 
 const SearchFilterBlock = styled.div`
   width: 100%;
@@ -34,72 +31,70 @@ const VerticalLayout = styled.div`
 
 const SearchFilter = () => {
   const [conditions, setConditions] = useState(CONDITIONS);
-  const [filters, setFilters] = useState([]);
-  const history = useHistory();
-
-  const dispatch = useDispatch();
+  const [filterList, setFilterList] = useFilters();
 
   const addFilter = (id) => {
-    const { condition } = CONDITIONS.find((_condition) => _condition.id === id);
+    const target = conditions.find((_condition) => _condition.id === id);
+    if (target === undefined) return;
+    const { condition } = conditions.find((_condition) => _condition.id === id);
     const newFilter = {
       id,
       condition,
       value: 0,
       checkedState: 'up', // 'up': 이상, 'down': 이하
     };
-    const newFilters = [...filters, newFilter];
-    newFilters.sort((a, b) => a.id - b.id);
-    setFilters(newFilters);
+    const newFilterList = [...filterList, newFilter];
+    newFilterList.sort((a, b) => a.id - b.id);
+    setFilterList(newFilterList);
   };
 
   const removeFilter = (id) => {
-    const newFilters = filters.filter((filter) => filter.id !== id);
-    setFilters(newFilters);
+    const newFilterList = filterList.filter((filter) => filter.id !== id);
+    setFilterList(newFilterList);
   };
 
   const setFilter = (id, value, checkedState) => {
-    const filter = filters.find((filter) => filter.id === id);
+    const filter = filterList.find((filter) => filter.id === id);
     const newFilter = { ...filter, value, checkedState };
-    const index = filters.indexOf(filter);
-    const newFilters = [...filters];
-    newFilters[index] = newFilter;
-    setFilters(newFilters);
+    const index = filterList.indexOf(filter);
+    const newFilterList = [...filterList];
+    newFilterList[index] = newFilter;
+    setFilterList(newFilterList);
+  };
+
+  const checkHandler = (e) => {
+    const id = Number(e.target.dataset.id);
+    const isExist = filterList.find((filter) => filter.id === id);
+    if (!isExist) {
+      addFilter(id);
+    } else {
+      removeFilter(id);
+    }
+
+    const newConditions = [...conditions];
+    newConditions[id - 1] = {
+      ...newConditions[id - 1],
+      isChecked: !conditions[id - 1].isChecked,
+    };
+    setConditions(newConditions);
   };
 
   return (
     <GlobalLayout>
       <SearchFilterBlock>
         <Layout>
-          {conditions.map((condition, index) => (
+          {conditions.map((condition) => (
             <CheckBox
+              id={condition.id}
               key={condition.id}
               title={condition.condition}
               checked={condition.isChecked}
-              onChange={() => {
-                const isExist = filters.find(
-                  (filter) => filter.id === condition.id
-                )
-                  ? true
-                  : false;
-                if (!isExist) {
-                  addFilter(condition.id);
-                } else {
-                  removeFilter(condition.id);
-                }
-
-                const newCondition = {
-                  ...condition,
-                  isChecked: !condition.isChecked,
-                };
-                const newConditions = [...conditions];
-                newConditions[index] = newCondition;
-                setConditions(newConditions);
-              }}
+              onClick={checkHandler}
             />
           ))}
         </Layout>
         <VerticalLayout>
-          {filters.map((filter) => (
+          {filterList.map((filter) => (
             <Filter
               key={filter.id}
               id={filter.id}
@@ -109,14 +104,7 @@ const SearchFilter = () => {
               setFilter={setFilter}
             />
           ))}
-          <Button
-            onClick={() => {
-              dispatch(setUserFilters(filters));
-              history.push('/result');
-            }}
-          >
-            필터링 결과 확인하기
-          </Button>
+          <Button to='/result'>필터링 결과 확인하기</Button>
         </VerticalLayout>
       </SearchFilterBlock>
     </GlobalLayout>

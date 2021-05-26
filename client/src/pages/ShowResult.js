@@ -4,11 +4,10 @@ import Card from '../components/common/Card';
 import GlobalLayout from '../components/base/GlobalLayout';
 import Pagination from '../components/common/Pagination';
 import FinancialStatements from '../components/FinancialStatements/FinancialStatements';
-import { useSelector } from 'react-redux';
-
 import { MOBILE_MAX_WIDTH } from '../domain/constants';
-import stocksApi from '../api/stock';
 import FilterSetting from '../components/Filter/FilterSetting';
+import useFilters from '../hooks/useFilters';
+import stocksApi from '../api/stock';
 
 const Layout = styled.main`
   display: flex;
@@ -39,7 +38,7 @@ const Description = styled.div`
 `;
 
 const ShowResult = () => {
-  const filters = useSelector((state) => state.filters);
+  const [filterList] = useFilters();
   const [resultStocks, setResultStocks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -49,7 +48,7 @@ const ShowResult = () => {
 
   useEffect(() => {
     stocksApi
-      .filterStocks(filters)
+      .filterStocks(filterList)
       .then((res) => {
         const { data } = res;
         setLoading(false);
@@ -59,7 +58,7 @@ const ShowResult = () => {
       .catch((err) => {
         console.error(err);
       });
-  }, [filters]);
+  }, [filterList]);
 
   const indexOfLastPost = currentPage * STOCK_PER_PAGE;
   const indexOfFirstPost = indexOfLastPost - STOCK_PER_PAGE;
@@ -102,7 +101,7 @@ const ShowResult = () => {
   return (
     <GlobalLayout>
       <Layout>
-        <FilterSetting filters={filters} />
+        <FilterSetting filterList={filterList} />
         {!loading ? (
           <LoadingBlock>Searching...</LoadingBlock>
         ) : (
@@ -111,7 +110,7 @@ const ShowResult = () => {
               * 종목을 클릭하여 상세 재무제표를 확인하세요.
             </Description>
             <CardsBlock>
-              {currentStocks.map((stock, index) => {
+              {currentStocks.map((stock) => {
                 const { code, name } = stock;
                 return (
                   <Card

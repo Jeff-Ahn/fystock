@@ -18,13 +18,13 @@ const Conditions = styled.div`
   margin: 2rem;
 `;
 
-const FilterSetting = ({ filters }) => {
-  const settings = filters.filters;
+const FilterSetting = ({ filterList }) => {
+  const settings = filterList;
   return (
     <FilterSettingBlock>
       <Text>{'* 사용자 필터링 셋팅'}</Text>
       <Conditions>
-        {settings.length
+        {settings?.length
           ? settings.map((filter) => {
               const { condition, value, checkedState } = filter;
               return (

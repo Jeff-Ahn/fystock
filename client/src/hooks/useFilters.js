@@ -5,7 +5,6 @@ const useFilters = () => {
   const dispatch = useDispatch();
   const filterList = useSelector((state) => state.filters.filterList);
   const setFilterList = (newFilterList) => {
-    console.log(newFilterList);
     dispatch(setUserFilters(newFilterList));
   };
 

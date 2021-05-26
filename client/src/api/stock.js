@@ -12,7 +12,9 @@ const stocksApi = {
     return stockInstance.get(`/${id}`);
   },
   filterStocks(filters) {
-    return stockInstance.post('/filtering', filters);
+    return stockInstance.post('/filtering', {
+      filters,
+    });
   },
 };
 
