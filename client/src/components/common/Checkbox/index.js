@@ -1,9 +1,6 @@
 import React from 'react';
-import styled from '@emotion/styled';
+import * as S from './styles';
 
-const TitleBlock = styled.span`
-  font-size: 1.125rem;
-`;
 const CheckBox = ({ id, onClick, onChange, title = '', checked = false }) => {
   return (
     <label>
@@ -14,7 +11,7 @@ const CheckBox = ({ id, onClick, onChange, title = '', checked = false }) => {
         type='checkbox'
         checked={checked}
       />
-      <TitleBlock>{title}</TitleBlock>
+      <S.TitleBlock>{title}</S.TitleBlock>
     </label>
   );
 };

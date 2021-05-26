@@ -1,18 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styled from '@emotion/styled';
-import { PRIMARY_COLOR } from '../../domain/constants';
-
-const ConditionBlock = styled.div`
-  min-width: 10rem;
-  font-size: 1rem;
-  margin-right: 0.125rem;
-  display: initial;
-`;
-
-const ConditionName = styled.span`
-  color: ${PRIMARY_COLOR};
-  font-weight: bold;
-`;
+import * as S from './styles';
 
 const Condition = ({ condition, value, checkedState }) => {
   const [unit, setUnit] = useState('');
@@ -47,10 +34,10 @@ const Condition = ({ condition, value, checkedState }) => {
 
   const updown = checkedState === 'up' ? '이상' : '이하';
   return (
-    <ConditionBlock>
-      <ConditionName>{condition}</ConditionName> {value}
+    <S.ConditionBlock>
+      <S.ConditionName>{condition}</S.ConditionName> {value}
       {unit} {updown} {'/'}
-    </ConditionBlock>
+    </S.ConditionBlock>
   );
 };
 

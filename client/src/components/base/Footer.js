@@ -1,14 +1,8 @@
 import React from 'react';
-import styled from '@emotion/styled';
-
-const FooterBlock = styled.div`
-  text-align: center;
-  font-size: 0.75rem;
-  padding: 2rem;
-`;
+import * as S from './styles';
 
 const Footer = () => {
-  return <FooterBlock>Copyright © 2020 AHU&LCS.</FooterBlock>;
+  return <S.FooterBlock>Copyright © 2020 AHU&LCS.</S.FooterBlock>;
 };
 
 export default Footer;

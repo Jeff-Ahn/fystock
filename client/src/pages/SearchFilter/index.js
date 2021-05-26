@@ -1,33 +1,11 @@
 import React, { useState } from 'react';
-import styled from '@emotion/styled';
-import GlobalLayout from '../components/base/GlobalLayout';
-import CheckBox from '../components/common/CheckBox';
-import Button from '../components/common/Button';
-import Filter from '../components/Filter/Filter';
-import useFilters from '../hooks/useFilters';
-import { CONDITIONS, MOBILE_MAX_WIDTH } from '../domain/constants';
-
-const SearchFilterBlock = styled.div`
-  width: 100%;
-  height: 45rem;
-`;
-
-const Layout = styled.main`
-  display: inline-block;
-  padding: 0 30%;
-  max-width: ${MOBILE_MAX_WIDTH};
-  margin: 2rem;
-  text-align: center;
-`;
-
-const VerticalLayout = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 0 20%;
-  max-width: ${MOBILE_MAX_WIDTH};
-`;
+import GlobalLayout from '../../components/base/GlobalLayout';
+import CheckBox from '../../components/common/Checkbox';
+import Button from '../../components/common/Button';
+import Filter from '../../components/Filter';
+import useFilters from '../../hooks/useFilters';
+import { CONDITIONS } from '../../domain/constants';
+import * as S from './styles';
 
 const SearchFilter = () => {
   const [conditions, setConditions] = useState(CONDITIONS);
@@ -81,8 +59,8 @@ const SearchFilter = () => {
 
   return (
     <GlobalLayout>
-      <SearchFilterBlock>
-        <Layout>
+      <S.SearchFilterBlock>
+        <S.Layout>
           {conditions.map((condition) => (
             <CheckBox
               id={condition.id}
@@ -92,8 +70,8 @@ const SearchFilter = () => {
               onClick={checkHandler}
             />
           ))}
-        </Layout>
-        <VerticalLayout>
+        </S.Layout>
+        <S.VerticalLayout>
           {filterList.map((filter) => (
             <Filter
               key={filter.id}
@@ -105,8 +83,8 @@ const SearchFilter = () => {
             />
           ))}
           <Button to='/result'>필터링 결과 확인하기</Button>
-        </VerticalLayout>
-      </SearchFilterBlock>
+        </S.VerticalLayout>
+      </S.SearchFilterBlock>
     </GlobalLayout>
   );
 };

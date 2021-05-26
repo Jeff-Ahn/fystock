@@ -1,41 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import styled from '@emotion/styled';
-import Card from '../components/common/Card';
-import GlobalLayout from '../components/base/GlobalLayout';
-import Pagination from '../components/common/Pagination';
-import FinancialStatements from '../components/FinancialStatements/FinancialStatements';
-import { MOBILE_MAX_WIDTH } from '../domain/constants';
-import FilterSetting from '../components/Filter/FilterSetting';
-import useFilters from '../hooks/useFilters';
-import stocksApi from '../api/stock';
+import Card from '../../components/common/Card';
+import Pagination from '../../components/common/Pagination';
+import FinancialStatements from '../../components/FinancialStatements';
+import FilterSetting from '../../components/Filter/FilterSetting';
+import GlobalLayout from '../../components/base/GlobalLayout';
 
-const Layout = styled.main`
-  display: flex;
-  flex-direction: column;
-  padding: 0 30%;
-  max-width: ${MOBILE_MAX_WIDTH};
-  margin: 2rem;
-`;
-
-const CardsBlock = styled.div`
-  margin: 0 auto;
-  height: 28rem;
-`;
-
-const LoadingBlock = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 13rem;
-  font-size: 2rem;
-`;
-
-const Description = styled.div`
-  margin-left: 2.5rem;
-  margin-bottom: 2.5rem;
-  font-size: 1.25rem;
-  font-weight: bold;
-`;
+import useFilters from '../../hooks/useFilters';
+import stocksApi from '../../api/stock';
+import * as S from './styles';
 
 const ShowResult = () => {
   const [filterList] = useFilters();
@@ -100,16 +72,16 @@ const ShowResult = () => {
 
   return (
     <GlobalLayout>
-      <Layout>
+      <S.Layout>
         <FilterSetting filterList={filterList} />
         {!loading ? (
-          <LoadingBlock>Searching...</LoadingBlock>
+          <S.LoadingBlock>Searching...</S.LoadingBlock>
         ) : (
           <>
-            <Description>
+            <S.Description>
               * 종목을 클릭하여 상세 재무제표를 확인하세요.
-            </Description>
-            <CardsBlock>
+            </S.Description>
+            <S.CardsBlock>
               {currentStocks.map((stock) => {
                 const { code, name } = stock;
                 return (
@@ -124,7 +96,7 @@ const ShowResult = () => {
                   />
                 );
               })}
-            </CardsBlock>
+            </S.CardsBlock>
           </>
         )}
         <Pagination
@@ -134,7 +106,7 @@ const ShowResult = () => {
           paginate={paginate}
         />
         <>{details.length ? <FinancialStatements data={details} /> : null}</>
-      </Layout>
+      </S.Layout>
       )
     </GlobalLayout>
   );
