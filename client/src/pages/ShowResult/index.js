@@ -19,17 +19,21 @@ const ShowResult = () => {
   const STOCK_PER_PAGE = 10;
 
   useEffect(() => {
-    stocksApi
-      .filterStocks(filterList)
-      .then((res) => {
+    const getFiteredStockList = async () => {
+      try {
+        const res = await stocksApi.filterStocks(filterList);
+        if (res.status !== 200) {
+          throw new Error(res.status);
+        }
         const { data } = res;
         setLoading(false);
         setResultStocks(data);
         setLoading(true);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+      } catch (e) {
+        throw new Error(e.message);
+      }
+    };
+    getFiteredStockList();
   }, [filterList]);
 
   const indexOfLastPost = currentPage * STOCK_PER_PAGE;
@@ -60,12 +64,17 @@ const ShowResult = () => {
         setDetails([]);
         return;
       }
-      await stocksApi
-        .getStock(code)
-        .then(({ data }) => {
-          setDetails(data);
-        })
-        .catch((err) => console.error(err));
+      try {
+        const res = await stocksApi.getStock(code);
+        if (res.status !== 200) {
+          throw new Error(res.status);
+        }
+        const { data } = res;
+
+        setDetails(data);
+      } catch (e) {
+        throw new Error(e.message);
+      }
     },
     [details]
   );

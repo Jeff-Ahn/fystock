@@ -5,17 +5,14 @@ const stockInstance = axios.create({
 });
 
 const stocksApi = {
-  getAllStocks() {
-    return stockInstance.get('/');
-  },
-  getStock(id) {
-    return stockInstance.get(`/${id}`);
-  },
-  filterStocks(filters) {
-    return stockInstance.post('/filtering', {
+  getAllStocks: async () => await stockInstance.get('/'),
+
+  getStock: async (id) => await stockInstance.get(`/${id}`),
+
+  filterStocks: async (filters) =>
+    await stockInstance.post('/filtering', {
       filters,
-    });
-  },
+    }),
 };
 
 export default stocksApi;
