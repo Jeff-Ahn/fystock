@@ -67,7 +67,7 @@ const SearchFilter = () => {
               key={condition.id}
               title={condition.condition}
               checked={condition.isChecked}
-              onClick={checkHandler}
+              onChange={checkHandler}
             />
           ))}
         </S.Layout>
