@@ -40,44 +40,36 @@ const ShowResult = () => {
   const indexOfFirstPost = indexOfLastPost - STOCK_PER_PAGE;
   const currentStocks = resultStocks?.slice(indexOfFirstPost, indexOfLastPost);
 
-  const onRemove = useCallback(
-    (code) => {
-      const filteredStocks = resultStocks.filter(
-        (stock) => stock.code !== code
-      );
-      if (details.length && details[0].code === code) {
-        setSelectedStockId(null);
-        setDetails([]);
-      }
-      setResultStocks(filteredStocks);
-    },
-    [resultStocks, details]
-  );
+  const onRemove = (code) => {
+    const filteredStocks = resultStocks.filter((stock) => stock.code !== code);
+    if (details.length && details[0].code === code) {
+      setSelectedStockId(null);
+      setDetails([]);
+    }
+    setResultStocks(filteredStocks);
+  };
 
   const paginate = useCallback((pageNumber) => {
     setCurrentPage(pageNumber);
   }, []);
 
-  const showDetails = useCallback(
-    async (code) => {
-      if (details.length && details[0].code === code) {
-        setDetails([]);
-        return;
+  const showDetails = async (code) => {
+    if (details.length && details[0].code === code) {
+      setDetails([]);
+      return;
+    }
+    try {
+      const res = await stocksApi.getStock(code);
+      if (res.status !== 200) {
+        throw new Error(res.status);
       }
-      try {
-        const res = await stocksApi.getStock(code);
-        if (res.status !== 200) {
-          throw new Error(res.status);
-        }
-        const { data } = res;
+      const { data } = res;
 
-        setDetails(data);
-      } catch (e) {
-        throw new Error(e.message);
-      }
-    },
-    [details]
-  );
+      setDetails(data);
+    } catch (e) {
+      throw new Error(e.message);
+    }
+  };
 
   return (
     <GlobalLayout>
