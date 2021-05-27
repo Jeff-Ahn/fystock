@@ -6,7 +6,7 @@ const FilterSetting = ({ filterList }) => {
   const settings = filterList;
   return (
     <S.FilterSettingBlock>
-      <S.Text>{'* 사용자 필터링 셋팅'}</S.Text>
+      <S.Text>* 사용자 필터링 셋팅</S.Text>
       <S.ConditionsBlock>
         {settings?.length
           ? settings.map((filter) => {
