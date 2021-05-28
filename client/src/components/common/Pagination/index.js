@@ -1,6 +1,7 @@
 import React from 'react';
 import * as S from './styles';
 
+// 결과 주식들을 pagination하여 보여주기 위한 컴포넌트
 const Pagination = ({ stockPerPage, totalStocks, paginate, page }) => {
   const pageNumbers = [];
 

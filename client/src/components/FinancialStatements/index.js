@@ -3,6 +3,7 @@ import { TABLE_THS } from '../../domain/constants';
 import FSDetail from './FSDetail';
 import * as S from './styles';
 
+// 결과 종목들 중에서 클릭한 종목의 재무제표를 보여주기 위한 컴포넌트
 const FinancialStatements = ({ data }) => {
   return (
     <S.FinancialStatementsBlock>

@@ -6,9 +6,10 @@ import FilterSetting from '../../components/Filter/FilterSetting';
 import GlobalLayout from '../../components/base/GlobalLayout';
 
 import useFilters from '../../hooks/useFilters';
-import stocksApi from '../../api/stock';
+import stocksApi from '../../lib/api/stock';
 import * as S from './styles';
 
+// 사용자가 설정한 필터링을 통해 나온 결과 종목들을 보여주는 페이지
 const ShowResult = () => {
   const [filterList] = useFilters();
   const [resultStocks, setResultStocks] = useState([]);

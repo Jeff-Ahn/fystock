@@ -27,6 +27,7 @@ export const CONDITIONS = [
   { id: 16, condition: '배당성향', isChecked: false },
 ];
 
+// 재무제표 항목들(Naver Financial 기준)
 export const TABLE_THS = [
   '날짜',
   '매출액(억원)',

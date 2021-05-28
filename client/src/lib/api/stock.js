@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 // 주식에 대한 정보를 백엔드에서 받아오기 위한 api 함수들
+
 const stockInstance = axios.create({
   baseURL: '/find',
 });
