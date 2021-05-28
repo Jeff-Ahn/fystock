@@ -11,6 +11,9 @@ import { FYSTOCK_BLACK } from './domain/constants';
 import filtersReducer from './store/reducers/filters';
 
 const globalStyle = css`
+  * {
+    box-sizing: border-box;
+  }
   body {
     margin: 0;
     padding: 0;

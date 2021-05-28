@@ -1,15 +1,15 @@
 import { SET_USER_FITERS } from '../actions/filters';
 
 const initialState = {
-  filters: [],
+  filterList: [],
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case SET_USER_FITERS:
-      const { filters } = action.payload;
+      const { filterList } = action.payload;
       return {
-        filters,
+        filterList,
       };
     default:
       return state;
