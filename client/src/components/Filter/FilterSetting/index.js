@@ -2,6 +2,7 @@ import React from 'react';
 import Condition from '../Condition';
 import * as S from './styles';
 
+// 결과 페이지에 사용자가 사용한 필터링 셋팅사항을 보여주기 위한 컴포넌트
 const FilterSetting = ({ filterList }) => {
   const settings = filterList;
   return (

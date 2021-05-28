@@ -1,35 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { addUnit } from '../../../lib/utils';
 import * as S from './styles';
 
+// 사용자가 선택한 재무제표의 조건을 표시하기 위한 컴포넌트
 const Condition = ({ condition, value, checkedState }) => {
   const [unit, setUnit] = useState('');
 
   useEffect(() => {
-    const calcUnit = (condition) => {
-      const length = condition.length;
-      switch (condition[length - 1]) {
-        case '액':
-        case '익':
-          setUnit('억원');
-          break;
-        case '율':
-        case '률':
-        case 'E':
-        case '향':
-          setUnit('%');
-          break;
-        case 'R':
-          setUnit('배');
-          break;
-        case 'S':
-        case '금':
-          setUnit('원');
-          break;
-        default:
-          break;
-      }
-    };
-    calcUnit(condition);
+    addUnit(condition, setUnit);
   }, [condition]);
 
   const updown = checkedState === 'up' ? '이상' : '이하';
